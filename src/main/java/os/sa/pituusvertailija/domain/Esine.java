@@ -8,15 +8,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Esine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long esineid;
+    @NotNull
     private String nimi;
-    private int korkeus;
-    private int leveys;
+    @NotNull
+    @Min(1)
+    private Double korkeus;
+    @NotNull
+    @Min(1)
+    private Double leveys;
 
     @JsonIgnoreProperties("esineet")
     @ManyToOne
@@ -26,11 +33,19 @@ public class Esine {
     public Esine() {
     }
 
-    public Esine(String nimi, int korkeus, int leveys, Kategoria kategoria) {
+    public Esine(String nimi, Double korkeus, Double leveys, Kategoria kategoria) {
         this.nimi = nimi;
         this.korkeus = korkeus;
         this.leveys = leveys;
         this.kategoria = kategoria;
+    }
+
+    public Long getEsineid() {
+        return esineid;
+    }
+
+    public void setEsineid(Long esineid) {
+        this.esineid = esineid;
     }
 
     public String getNimi() {
@@ -41,19 +56,19 @@ public class Esine {
         this.nimi = nimi;
     }
 
-    public int getKorkeus() {
+    public Double getKorkeus() {
         return korkeus;
     }
 
-    public void setKorkeus(int korkeus) {
+    public void setKorkeus(Double korkeus) {
         this.korkeus = korkeus;
     }
 
-    public int getLeveys() {
+    public Double getLeveys() {
         return leveys;
     }
 
-    public void setLeveys(int leveys) {
+    public void setLeveys(Double leveys) {
         this.leveys = leveys;
     }
 

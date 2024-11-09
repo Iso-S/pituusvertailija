@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en"
+xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esineet</title>
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; align-items: center; padding-right: 5%; padding-left: 5%; padding-top: 5%;">
+        <h1>Esinekirjasto</h1>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            <a class="btn btn-success" href="/uusiesine">Lisää esine</a>
+            <a class="btn btn-success" href="/uusikategoria">Lisää kategoria</a>
+        </div>
+    </div>
+    <div style="padding-left: 5%; padding-right: 5%; padding-top: 2%;">
+        <table class="table table-striped" style="margin: 0 auto;">
+            <tr>
+                <th>Nimi</th>
+                <th>Korkeus (cm)</th>
+                <th>Leveys (cm)</th>
+                <th>Kategoria</th>
+                <th sec:authorize="hasAuthority('ADMIN')">Toiminnot</th>
+            </tr>   
+            <tr th:each="esine : ${esineet}">
+                <td th:text="${esine.nimi}"></td>
+                <td th:text="${esine.korkeus}"></td>
+                <td th:text="${esine.leveys}"></td>
+                <td th:text="${esine.kategoria.name}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-warning" th:href="@{/edit/{id}(id=${esine.esineid})}">Muokkaa</a> <a class="btn btn-danger" th:href="@{/delete/{id}(id=${esine.esineid})}">Poista</a></td>
+
+            </tr>
+        </table>
+        <div style="padding-top: 2%;">
+            <a class="btn btn-success" href="/">Takaisin valikkoon</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" 
+xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uusi esine</title>
+</head>
+<body>
+    <h1>Uuden esineen tiedot</h1>
+    <form th:object="${esine}" th:action="@{save}" action="#" method="post">
+
+        <label for="nimi">Nimi</label>
+        <input type="text" id="nimi" th:field="*{nimi}" />
+        <td th:if="${#fields.hasErrors('nimi')}" th:errors="*{nimi}">Error</td>
+
+        <label for="korkeus">Korkeus</label>
+        <input type="text" id="korkeus" th:field="*{korkeus}" />
+        <td th:if="${#fields.hasErrors('korkeus')}" th:errors="*{korkeus}">Error</td> 
+
+        <label for="leveys">Leveys</label>
+        <input type="text" id="leveys" th:field="*{leveys}" />
+        <td th:if="${#fields.hasErrors('leveys')}" th:errors="*{leveys}">Error</td>
+
+        <label for="kategoria">Kategoria</label>
+        <select th:field="*{kategoria}">
+            <option th:each="kategoria : ${kategoriat}" th:value="${kategoria.kategoriaid}" th:text="${kategoria.name}"></option>
+        </select>
+
+        <input type="submit" value="Save"></input>
+        <a href="/esineet">Takaisin esinelistaukseen</a>
+        
+    </form>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" /> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esineiden vertailu</title>
+</head>
+<body>
+    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; text-align: center;">
+        <h1>Vertaa Esineiden Korkeuksia</h1>
+        <div style="padding-left: 5%; padding-right: 5%; padding-top: 2%; padding-bottom: 2%;">
+            <form th:action="@{/vertaa}" method="post">
+                <label for="esine1">Ensimmäinen esine:</label>
+                <select id="esine1" name="esine1">
+                    <option th:each="esine : ${esineet}" 
+                        th:value="${esine.esineid}" 
+                        th:text="${esine.nimi}">
+                    </option>
+                </select>
+                <label for="esine2">Toinen esine:</label>
+                <select id="esine2" name="esine2">
+                    <option th:each="esine : ${esineet}" 
+                        th:value="${esine.esineid}" 
+                        th:text="${esine.nimi}">
+                    </option>
+                </select>
+                <button type="submit">Vertaa esineitä</button>
+            </form>
+        </div>
+        <div style="padding-left: 5%; padding-right: 5%; padding-top: 2%;" th:if="${tulos != null}">
+            <h2>Vertailun tulos:</h2>
+            <p th:text="${tulos}"></p>
+        </div>
+        <div style="padding-left: 5%; padding-right: 5%;">
+            <a class="btn btn-success" href="/">Takaisin valikkoon</a>
+        </div>
+    </div>
+</body>
+</html>
